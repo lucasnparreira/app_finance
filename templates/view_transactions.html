@@ -10,9 +10,13 @@
     <nav>
         <a href="/">Home</a>
         <a href="/add">Add Transaction</a>
-        <!-- <a href="/transactions">View Transactions</a> -->
     </nav>
     <div class="container">
+        <form method="POST" action="/">
+            <!-- <label for="search_query">Search by description:</label> -->
+            <input type="text" id="search_query" name="search_query" placeholder="Search by description">
+            <button type="submit">Search</button>
+        </form>
         <h3>Transactions</h3>
         <table>
             <tr>

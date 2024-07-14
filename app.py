@@ -5,14 +5,15 @@ from models import init_db
 app =Flask(__name__)
 init_db()
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     conn = sqlite3.connect('database.db')
-    cursor = conn.cursor()
-    cursor.execute('SELECT * FROM transactions')
-    transactions = cursor.fetchall()
+    if request.method == 'POST':
+        search_query = request.form['search_query']
+        transactions = conn.execute('SELECT * FROM transactions WHERE description LIKE ?', ('%' + search_query + '%',)).fetchall()
+    else:
+        transactions = conn.execute('SELECT * FROM transactions').fetchall()
     conn.close()
-
     return render_template('view_transactions.html', transactions=transactions)
 
 
